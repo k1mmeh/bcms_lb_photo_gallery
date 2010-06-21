@@ -3,7 +3,7 @@ class ThumbnailedImage < AbstractFileBlock
   acts_as_content_block :versioned => { :version_foreign_key => :file_block_id },
     :belongs_to_attachment => true, :taggable => true
 
-  include KkChurchImages
+  include ImageProcessing
 
   after_save :create_thumbnails
 
