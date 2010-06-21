@@ -1,0 +1,48 @@
+<h2>Photo gallery:</h2>
+<% pairs = split_list_into_pairs(@photos) -%>
+<table width="500" cellspacing="10" align="center">
+  <% pairs.each do |pair| -%>
+  <tr>
+    <% pair.each do |photo| -%>
+    <td valign="bottom">
+      <div class="imageWrapper">
+        <%= link_to("<img src=\"#{[photo.path, 'size=medium'].join('?')}\" alt=\"#{h photo.name}\" width=\"200\" />", photo.path, :rel => 'prettyPhoto', :title => photo.description.to_s) %>
+        <p><%=h photo.name %></p>
+      </div>
+    </td>
+    <% end -%>
+  </tr>
+  <% end -%>
+</table>
+
+<div class="pagination">
+  <div class="info">
+    Displaying
+    <%= @photos.offset + 1 %>
+    -
+    <%= @photos.offset + @photos.size %>
+    of
+    <%= @photos.total_entries %>
+  </div>
+  <div class="links">
+    <%= link_to("&nbsp;", url_for({:ppage => 1}), :id => "first_page_link") %>
+    <%= link_to("&nbsp;", url_for({:ppage => @photos.previous_page ? @photos.previous_page : 1}), :id => "previous_page_link") %>
+    <span>
+      <% url = URI.parse(url_for({:ppage => 1})) %>
+      <% form_tag url.path, :method => :get, :class => "current_page" do %>
+        <% url.query.to_s.split('&').each do |p|; k, v = p.split('=') %>
+          <%= hidden_field_tag(k, CGI::unescape(v.to_s), :id => "pagination_hidden_#{k}") unless k == "ppage" %>
+        <% end %>
+        <%= label_tag "current_page_number", "Page" %>
+        <%= text_field_tag "ppage", @photos.current_page, :id => "current_page_number", :size => 3 %>
+        of
+        <strong>
+          <%= @photos.total_pages %>
+        </strong>
+      <% end %>
+    </span>
+    <%= link_to("&nbsp;", url_for({:ppage => @photos.next_page ? @photos.next_page : 1}), :id => "next_page_link") %>
+    <%= link_to("&nbsp;", url_for({:ppage => @photos.total_pages}), :id => "last_page_link") %>
+  </div>
+  <br clear="all"/>
+</div>
