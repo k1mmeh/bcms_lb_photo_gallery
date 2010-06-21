@@ -1,0 +1,1 @@
+require File.join(File.dirname(__FILE__), "..", "..", "lib", "bcms_lb_photo_gallery")
