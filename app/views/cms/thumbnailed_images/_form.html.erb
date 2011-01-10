@@ -23,6 +23,7 @@
 
 <%= f.cms_text_field :name %>
 <%= f.cms_text_area :description %>
+<%= f.cms_date_picker :published_date %>
 <%= f.cms_file_field :attachment_file, :label => "File" %>
 <%= f.cms_drop_down :attachment_section_id, 
   @sections.map{|s| [s.full_path, s.id]}, 
