@@ -32,12 +32,12 @@ module ImageProcessing
 
   private
 
-  # ensure that each class that mixes in ConsumerImages implements this method
+  # ensure that each class that mixes in ImageProcessing implements this method
   def create_thumbnails
     raise Exception, "Method not implemented. 'create_thumbnails' must be declared for the class to mixin ImageProcessing"
   end
 
-  # each class that mixes in ConsumerImages needs to specify which thumbnail sizes
+  # each class that mixes in ImageProcessing needs to specify which thumbnail sizes
   # it expects to process.
   def get_thumbnail_sizes
     # validate here (unless)
